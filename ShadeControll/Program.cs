@@ -1,14 +1,6 @@
 ﻿using System;
-using Telegram.Bot;
-using Telegram.Bot.Args;
 using System.Threading;
-using System.Net.NetworkInformation;
-using System.Diagnostics;
-using System.Drawing.Imaging;
-using System.Drawing;
-using System.IO;
 using ShadeControll.Commands;
-using System.Collections.Generic;
 
 namespace ShadeControll
 {
