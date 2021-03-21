@@ -9,11 +9,15 @@ namespace ShadeControll.Commands
         public Help_Command()
         {
             Name = "/help";
+            Description = "Wyświetlenie Pomocy.";
         }
 
         public override void Execute()
         {
-            Program.Client.SendMessage("/help /shutdown /logout /screenshot");
+            foreach (Command cmd in Command.AvailableCommands)
+            {
+                Program.Client.SendMessage(cmd.Name);
+            }
             base.Execute();
         }
     }

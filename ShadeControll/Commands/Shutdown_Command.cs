@@ -11,6 +11,7 @@ namespace ShadeControll.Commands
         public ShutDown_Command()
         {
             Name = "/shutdown";
+            Description = "Wyłączenie komputera po 5 sekundach.";
         }
 
         public override void Execute()

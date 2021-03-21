@@ -9,12 +9,11 @@ namespace ShadeControll.Commands
         public Test_Command()
         {
             Name = "/test";
+            Description = "Komenda Testowa (do testowania nowych funkcji)";
         }
 
         public override void Execute()
         {
-
-
             base.Execute();
         }
     }

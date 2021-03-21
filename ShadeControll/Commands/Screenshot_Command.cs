@@ -13,6 +13,7 @@ namespace ShadeControll.Commands
         public Screenshot_Command()
         {
             Name = "/screenshot";
+            Description = "Zrobienie zrzutu ekranu komputera.";
         }
 
         public override void Execute()

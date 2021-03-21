@@ -31,30 +31,9 @@ namespace ShadeControll
 
         private static void Client_NewMessage(string message)
         {
-            switch (message)
+            foreach(Command cmd in Command.AvailableCommands)
             {
-                case "/help":
-                    new Help_Command().Execute();
-                    break;
-
-                case "/test":
-                    new Test_Command().Execute();
-                    break;
-
-                case "/shutdown":
-                    Client.SendMessage("Wyłączanie Komputera");
-                    new ShutDown_Command().Execute();
-                    break;
-
-                case "/logout":
-                    Client.SendMessage("Wylogowywanie");
-                    new Logout_Command().Execute();
-                    break;
-
-                case "/screenshot":
-                    Client.SendMessage("Robienie zrzutu ekranu");
-                    new Screenshot_Command().Execute();
-                    break;
+                if(cmd.Name == message) { cmd.Execute(); }
             }
         }
     }

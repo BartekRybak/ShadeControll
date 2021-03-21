@@ -11,6 +11,7 @@ namespace ShadeControll.Commands
         public Logout_Command()
         {
             Name = "/logout";
+            Description = "Wylogowanie użytkownika po 5 sekundach.";
         }
 
         public override void Execute()
