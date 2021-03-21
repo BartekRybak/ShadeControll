@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.InputFiles;
 
 namespace ShadeControll
 {
@@ -50,10 +53,24 @@ namespace ShadeControll
                 );
         }
 
-        public async void Bot_OnMessage(object sender, MessageEventArgs e)
+        public async void SendImage(string image,string caption)
         {
-
-                NewMessage(e.Message.Text);
+            await botClient.SendPhotoAsync(
+                chatId: MY_ID_CHAT,
+                photo: image,
+                caption: caption
+                );
         }
+
+        public async void UploadFile(string file,string caption)
+        {
+            using (FileStream fs = System.IO.File.OpenRead(file))
+            {
+                InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, file);
+                await botClient.SendDocumentAsync(MY_ID_CHAT, inputOnlineFile,caption);
+            }
+        }
+
+        public async void Bot_OnMessage(object sender, MessageEventArgs e){ NewMessage(e.Message.Text); }
     }
 }
