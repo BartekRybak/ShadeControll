@@ -14,13 +14,13 @@ namespace ShadeControll.Commands
             Description = "Wylogowanie użytkownika po 5 sekundach.";
         }
 
-        public override void Execute()
+        public override void Execute(string[] args)
         {
             Thread.Sleep(5000);
             Console.WriteLine("WYLOGOWYWANIE");
             Process.Start("shutdown", "/l");
 
-            base.Execute();
+            base.Execute(args);
         }
     }
 }

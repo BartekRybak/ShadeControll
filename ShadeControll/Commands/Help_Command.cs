@@ -12,13 +12,27 @@ namespace ShadeControll.Commands
             Description = "Wyświetlenie Pomocy.";
         }
 
-        public override void Execute()
+        public override void Execute(string[] args)
         {
-            foreach (Command cmd in Command.AvailableCommands)
+            if(args.Length > 0)
             {
-                Program.Client.SendMessage(cmd.Name);
+                foreach(Command cmd in Command.AvailableCommands)
+                {
+                    if(args[0] == cmd.Name)
+                    {
+                        Program.Client.SendMessage(cmd.Name + " : " + cmd.Description);
+                    }
+                }
             }
-            base.Execute();
+            else
+            {
+                foreach(Command cmd in Command.AvailableCommands)
+                {
+                    Program.Client.SendMessage(cmd.Name);
+                }
+            }
+
+            base.Execute(args);
         }
     }
 }

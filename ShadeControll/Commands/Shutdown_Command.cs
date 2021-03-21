@@ -14,12 +14,12 @@ namespace ShadeControll.Commands
             Description = "Wyłączenie komputera po 5 sekundach.";
         }
 
-        public override void Execute()
+        public override void Execute(string[] args)
         {
             Thread.Sleep(5000);
             Console.WriteLine("WYŁĄCZANIE");
             Process.Start("shutdown", "/s /t 0");
-            base.Execute();
+            base.Execute(args);
         }
     }
 }
