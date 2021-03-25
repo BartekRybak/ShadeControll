@@ -9,7 +9,7 @@ namespace ShadeControll.Commands
         public Help_Command()
         {
             Name = "/help";
-            Description = "Wyświetlenie Pomocy.";
+            Description = "Help";
         }
 
         public override void Execute(string[] args)

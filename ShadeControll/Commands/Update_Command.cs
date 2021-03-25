@@ -13,16 +13,19 @@ namespace ShadeControll.Commands
         public Update_Command()
         {
             Name = "/update";
-            Description = "Aktualizacja Oprogramowania \n" +
-                "/update [adres do paczki .zip]" +
-                "/update restore";
+            Description = "Update app \n" +
+                "/update [update url adress]";
         }
 
         public override void Execute(string[] args)
         {
-            if(args.Length >= 0)
+            if(args.Length > 0)
             {
                 RunUpdater(updaterDirectory, args[0] + " ShadeControll " + Directory.GetCurrentDirectory());
+            }
+            else
+            {
+                Program.telegramClient.SendMessage(Description);
             }
             
             base.Execute(args);
@@ -32,12 +35,12 @@ namespace ShadeControll.Commands
         {
             if(File.Exists(file))
             {
-                Program.telegramClient.SendMessage("Rozpoczynam Aktualizacje Oprogramowania");
+                Program.telegramClient.SendMessage("Updating in progress.");
                 Process.Start(file, args);  
             }
             else
             {
-                Program.telegramClient.SendMessage("Brak pliku updater.exe");
+                Program.telegramClient.SendMessage("i cant find updater.exe");
             }
         }
     }

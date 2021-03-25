@@ -11,13 +11,12 @@ namespace ShadeControll.Commands
         public Logout_Command()
         {
             Name = "/logout";
-            Description = "Wylogowanie użytkownika po 5 sekundach.";
+            Description = "Just Logout current user";
         }
 
         public override void Execute(string[] args)
         {
             Thread.Sleep(5000);
-            Console.WriteLine("WYLOGOWYWANIE");
             Process.Start("shutdown", "/l");
 
             base.Execute(args);

@@ -13,12 +13,14 @@ namespace ShadeControll.Commands
         public Version_Command()
         {
             Name = "/version";
-            Description = "Wyświetl aktualną wersję aplikacji.";
+            Description = "Check App Version";
         }
 
         public override void Execute(string[] args)
         {
-            Program.telegramClient.SendMessage("Wersja Aplikacji - " + Program.configFile.GetValue("info", "version"));
+            Program.telegramClient.SendMessage(
+                "App Version - " + Program.configFile.GetValue("info", "version") + "\n /update"
+                );
             base.Execute(args);
         }
     }

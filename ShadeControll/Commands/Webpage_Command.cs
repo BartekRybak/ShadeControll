@@ -9,7 +9,7 @@ namespace ShadeControll.Commands
         public Webpage_Command()
         {
             Name = "/web";
-            Description = "Otwiera wybraną stronę internetową /web www.google.com";
+            Description = "Open browser page /web www.google.com";
         }
 
         public override void Execute(string[] args)

