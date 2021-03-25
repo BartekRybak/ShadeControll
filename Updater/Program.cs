@@ -151,17 +151,22 @@ namespace Updater
                 try
                 {
                     archive.ExtractToDirectory(destinationDirectory);
-                      return true;
-                   }
-                 catch
+                    File.Delete(archiveFile);
+                    return true;
+                }
+                catch
                 {
+                    File.Delete(archiveFile);
                     return false;
                 }
             }
             else
             {
+                File.Delete(archiveFile);
                 return false;
             }
+
+            
         }
 
         /// <summary>

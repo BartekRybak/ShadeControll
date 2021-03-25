@@ -20,7 +20,7 @@ namespace ShadeControll.Commands
                 {
                     if(args[0] == cmd.Name)
                     {
-                        Program.Client.SendMessage(cmd.Name + " : " + cmd.Description);
+                        Program.telegramClient.SendMessage(cmd.Name + " : " + cmd.Description);
                     }
                 }
             }
@@ -28,7 +28,7 @@ namespace ShadeControll.Commands
             {
                 foreach(Command cmd in Command.AvailableCommands)
                 {
-                    Program.Client.SendMessage(cmd.Name);
+                    Program.telegramClient.SendMessage(cmd.Name);
                 }
             }
 

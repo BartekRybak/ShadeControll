@@ -32,12 +32,12 @@ namespace ShadeControll.Commands
         {
             if(File.Exists(file))
             {
-                Program.Client.SendMessage("Rozpoczynam Aktualizacje Oprogramowania");
+                Program.telegramClient.SendMessage("Rozpoczynam Aktualizacje Oprogramowania");
                 Process.Start(file, args);  
             }
             else
             {
-                Program.Client.SendMessage("Brak pliku updater.exe");
+                Program.telegramClient.SendMessage("Brak pliku updater.exe");
             }
         }
     }

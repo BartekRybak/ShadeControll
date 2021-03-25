@@ -14,7 +14,7 @@ namespace ShadeControll.Commands
 
         public override void Execute(string[] args)
         {
-            Program.Client.SendMessage("dziala");
+            Program.telegramClient.SendMessage("dziala");
             if(args.Length > 0)
             {
                 Process.Start("cmd", "/C start" + " " + args[0]);

