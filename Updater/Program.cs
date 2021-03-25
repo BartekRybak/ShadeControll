@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Diagnostics;
 using System.Threading;
+using ShadeControll;
 
 namespace Updater
 {
@@ -20,72 +21,67 @@ namespace Updater
      */
     class Program
     {
-        static void Log(string text)
-        {
-            File.AppendAllText("log.txt", text);
-        }
+        static string[] exceptionDirectories = { "Updater" };
 
         static void Main(string[] args)
         {
-            File.Delete("log.txt");
-            string packUrl = "http://localhost/ShadeControll.zip";
-            string motherProcess = "ShadeControll";
-            string motherDirectory = @"C:/Users/Jan/source/repos/ShadeControll/ShadeControll/bin/Debug/netcoreapp3.1/";
-
+            Ninja.Hide();
+            string packUrl = args[0]; //"http://localhost/ShadeControll.zip";
+            string motherProcess = args[1]; //"ShadeControll";
+            string motherDirectory = args[2]; //@"C:/Users/Jan/source/repos/ShadeControll/ShadeControll/bin/Debug/netcoreapp3.1/";
+            Console.WriteLine("Zamykam " + motherProcess);
             if (KillMotherPorcess(motherProcess))
             {
+
                 Thread.Sleep(2000);
+                Console.WriteLine("Pobieram " + Path.GetFileName(packUrl));
                 if (DownloadZip(packUrl))
                 {
+                    Console.WriteLine("Rozpakowywuje");
                     if (UnpackZip(Path.GetFileName(packUrl),motherDirectory))
                     {
                         Thread.Sleep(2000);
+                        Console.WriteLine("Uruchamian " + motherProcess);
                         if(StartMotherProcess(motherProcess,motherDirectory))
-                        {
-                            Environment.Exit(0);
-                            Log("Gotowe");
-                        }
-                        else
-                        {
-                            Environment.Exit(4);
-                        }
+                        { Environment.Exit(0); } else { Environment.Exit(4); }
                     }
                     else
-                    {
-                        Environment.Exit(2);
-                    }
+                    { Environment.Exit(2); }
                 }
                 else
-                {
-                    Environment.Exit(1);
-                }
+                { Environment.Exit(1); }
             }
             else
-            {
-                Environment.Exit(3);
-            }
-            Console.ReadLine();
+            { Environment.Exit(3); }
         }
+
+        /// <summary>
+        /// Start Mother process
+        /// </summary>
+        /// <param name="motherProcess">Mother process name</param>
+        /// <param name="motherDirectory">Mother file directory</param>
+        /// <returns></returns>
         static bool StartMotherProcess(string motherProcess,string motherDirectory)
         {
-            string motherFileName = motherDirectory + motherProcess + ".exe";
+            string motherFileName = motherDirectory + "/" + motherProcess + ".exe";
             Console.WriteLine(motherFileName);
             if (File.Exists(motherFileName))
             {
-               // try
-                //{
+                try
+                {
                     Process p = new Process();
                     p.StartInfo = new ProcessStartInfo()
                     {
                         FileName = motherFileName
                     };
                     p.Start();
+                
                     return true;
-                // }
-                // catch
-                // {
-                //    return false;
-                // }
+                 }
+                 catch
+                 {
+                    return false;
+                 }
             }
             else
             {
@@ -93,6 +89,11 @@ namespace Updater
             }
         }
 
+        /// <summary>
+        /// Kill mother process
+        /// </summary>
+        /// <param name="motherProcess">Mother process name</param>
+        /// <returns></returns>
         static bool KillMotherPorcess(string motherProcess)
         {
             foreach (var process in Process.GetProcesses())
@@ -113,17 +114,33 @@ namespace Updater
             return true;
         }
 
+        /// <summary>
+        /// Unpack zip with update
+        /// </summary>
+        /// <param name="archiveFile">Zip fileName</param>
+        /// <param name="destinationDirectory">Destination folder</param>
+        /// <returns></returns>
         static bool UnpackZip(string archiveFile,string destinationDirectory)
         {
             DirectoryInfo di = new DirectoryInfo(destinationDirectory);
-
             foreach (FileInfo file in di.GetFiles())
             {
-                file.Delete();
+                if(file.Name != archiveFile)
+                {
+                    file.Delete();
+                }
+                
             }
+
             foreach (DirectoryInfo dir in di.GetDirectories())
             {
-                dir.Delete(true);
+                foreach(string exception in exceptionDirectories)
+                {
+                   if ((dir.Name != exception))
+                   {
+                       dir.Delete(true);
+                   }
+                }                
             }
 
             Thread.Sleep(2000);
@@ -147,6 +164,11 @@ namespace Updater
             }
         }
 
+        /// <summary>
+        /// Download zip with update form url
+        /// </summary>
+        /// <param name="url">archive file url</param>
+        /// <returns></returns>
         static bool DownloadZip(string url)
         {
             using(WebClient client = new WebClient())
@@ -162,6 +184,7 @@ namespace Updater
                     }
                     catch
                     {
+                        return false;
                     }
                 }
                     Console.WriteLine("3");
