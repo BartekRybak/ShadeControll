@@ -19,7 +19,7 @@ namespace ShadeControll
             // Preparing
             Ninja.Hide();
             configFile = GetConfig(configFileName);
-            telegramClient = new TelegramClient("1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg");
+            telegramClient = new TelegramClient(configFile.GetValue("info","key"));
             while(!telegramClient.Connect()) { Thread.Sleep(1000); }
 
             // First Run
@@ -32,11 +32,11 @@ namespace ShadeControll
 
             // Welcome Message
             telegramClient.SendMessage(
-                "ShadeControll is running now[" + configFile.GetValue("info","version") + "] \n" +
+                "ShadeControll is running now[" + configFile.GetValue("info", "version") + "] \n" +
                 "MachineName [" + Environment.MachineName + "] \n" +
                 "AppID [" + configFile.GetValue("info","id") + "] \n" +
                 "UserName [" + Environment.UserName + "] \n" +
-                "/help " + configFile.GetValue("info","first_run")
+                "/help "
                 );
             telegramClient.NewMessage += Client_NewMessage;
             while (true) { Thread.Sleep(1000); }
