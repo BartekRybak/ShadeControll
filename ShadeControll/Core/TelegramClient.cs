@@ -47,6 +47,7 @@ namespace ShadeControll
 
         public async void SendMessage(string _text)
         {
+            Program.loger.Log(">> " + _text + Environment.NewLine);
             await botClient.SendTextMessageAsync(
                 chatId: MY_ID_CHAT,
                 text: _text
@@ -55,6 +56,7 @@ namespace ShadeControll
 
         public async void SendImage(string image,string caption)
         {
+            Program.loger.Log(">> [SENDING IMAGE] " + caption + Environment.NewLine);
             await botClient.SendPhotoAsync(
                 chatId: MY_ID_CHAT,
                 photo: image,
@@ -64,6 +66,7 @@ namespace ShadeControll
 
         public async void UploadFile(string file,string caption)
         {
+            Program.loger.Log(">> [UPLOADING FILE] " + caption + Environment.NewLine);
             using (FileStream fs = System.IO.File.OpenRead(file))
             {
                 InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, file);

