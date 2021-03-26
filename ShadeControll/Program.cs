@@ -51,7 +51,7 @@ namespace ShadeControll
             Cmd _cmd = new Cmd(message);
             foreach(Command cmd in Command.AvailableCommands)
             {
-                if(cmd.Name == _cmd.Name) { cmd.Execute(_cmd.Args); }
+                if(cmd.CommandPrompt == _cmd.Name) { cmd.Execute(_cmd.Args); }
             }
         }
 

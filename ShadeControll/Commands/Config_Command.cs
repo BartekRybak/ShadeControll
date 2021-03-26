@@ -9,9 +9,10 @@ namespace ShadeControll.Commands
     {
         public Config_Command()
         {
-            Name = "/config";
-            Description = "Config File \n" +
-                "/config [section] [key] [value]";
+            CommandPrompt = "/config";
+            Name = "Config";
+            Description = "Manage config file";
+            Help = "Exmaple: /config someSection someKey someValue";
         }
 
         public override void Execute(string[] args)

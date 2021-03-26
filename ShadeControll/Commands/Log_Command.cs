@@ -9,8 +9,10 @@ namespace ShadeControll.Commands
     {
         public Log_Command()
         {
-            Name = "/log";
+            CommandPrompt = "/log";
+            Name = "Log";
             Description = "Manage log files";
+            Help = "Example: /log 2021-23-04 [year-day-month]";
         }
 
         public override void Execute(string[] args)

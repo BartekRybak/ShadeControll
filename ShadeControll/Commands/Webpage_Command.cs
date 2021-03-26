@@ -8,8 +8,10 @@ namespace ShadeControll.Commands
     {
         public Webpage_Command()
         {
-            Name = "/web";
-            Description = "Open browser page /web www.google.com";
+            CommandPrompt = "/web";
+            Name = "Web";
+            Description = "Open browser page";
+            Help = "Example /web www.google.pl";
         }
 
         public override void Execute(string[] args)

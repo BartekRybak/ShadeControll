@@ -8,27 +8,30 @@ namespace ShadeControll.Commands
     {
         public Help_Command()
         {
-            Name = "/help";
-            Description = "Help";
+            CommandPrompt = "/help";
+            Name = "Help";
+            Description = "Show the Help";
         }
 
         public override void Execute(string[] args)
         {
-            if(args.Length > 0)
-            {
-                foreach(Command cmd in Command.AvailableCommands)
+            if (args.Length == 0)
+            { 
+                foreach(Command command in AvailableCommands)
                 {
-                    if(args[0] == cmd.Name)
-                    {
-                        Program.telegramClient.SendMessage(cmd.Name + " : " + cmd.Description);
-                    }
+                    Program.telegramClient.SendMessage(command.CommandPrompt + " : " + command.Description);
                 }
             }
-            else
+
+            if (args.Length == 1)
             {
-                foreach(Command cmd in Command.AvailableCommands)
+                foreach (Command command in AvailableCommands)
                 {
-                    Program.telegramClient.SendMessage(cmd.Name);
+                    if(command.CommandPrompt == args[0])
+                    {
+                        Program.telegramClient.SendMessage(command.Name + " : \n" + command.Description + "\n" + command.Help);
+                    }
+                    
                 }
             }
 

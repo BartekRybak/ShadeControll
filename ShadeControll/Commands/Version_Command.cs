@@ -12,7 +12,8 @@ namespace ShadeControll.Commands
     {
         public Version_Command()
         {
-            Name = "/version";
+            CommandPrompt = "/version";
+            Name = "Version";
             Description = "Check App Version";
         }
 

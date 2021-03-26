@@ -10,8 +10,9 @@ namespace ShadeControll.Commands
     {
         public ShutDown_Command()
         {
-            Name = "/shutdown";
-            Description = "just a shutdown";
+            CommandPrompt = "/shutdown";
+            Name = "Shutdown";
+            Description = "Just shutdown a computer";
         }
 
         public override void Execute(string[] args)

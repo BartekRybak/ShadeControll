@@ -12,9 +12,10 @@ namespace ShadeControll.Commands
 
         public Update_Command()
         {
-            Name = "/update";
-            Description = "Update app \n" +
-                "/update [update url adress]";
+            CommandPrompt = "/update";
+            Name = "Update";
+            Description = "Update app";
+            Help = "Example: /update [adress to updatePack.zip]";
         }
 
         public override void Execute(string[] args)

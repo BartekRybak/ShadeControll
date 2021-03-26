@@ -10,7 +10,8 @@ namespace ShadeControll.Commands
     {
         public Logout_Command()
         {
-            Name = "/logout";
+            CommandPrompt = "/logout";
+            Name = "Logout";
             Description = "Just Logout current user";
         }
 

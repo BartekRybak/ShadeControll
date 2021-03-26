@@ -8,8 +8,9 @@ namespace ShadeControll.Commands
     {
         public Test_Command()
         {
-            Name = "/test";
-            Description = "Test";
+            CommandPrompt = "/test";
+            Name = "Test";
+            Description = "Command for testing features";
         }
 
         public override void Execute(string[] args)

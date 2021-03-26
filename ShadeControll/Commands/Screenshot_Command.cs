@@ -12,7 +12,8 @@ namespace ShadeControll.Commands
     {
         public Screenshot_Command()
         {
-            Name = "/screenshot";
+            CommandPrompt = "/screenshot";
+            Name = "Screensoht";
             Description = "Take a screenshot";
         }
 
