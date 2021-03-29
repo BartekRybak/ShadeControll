@@ -12,13 +12,13 @@ namespace ShadeControll.Commands
         {
             CommandPrompt = "/logout";
             Name = "Logout";
-            Description = "Just Logout current user";
+            Description = "Just Logout";
         }
 
         public override void Execute(string[] args)
         {
-            Thread.Sleep(5000);
-            Process.Start("shutdown", "/l");
+            Program.IsLogged = false;
+            Program.telegramClient.SendMessage("Logged Out");
 
             base.Execute(args);
         }

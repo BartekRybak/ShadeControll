@@ -39,7 +39,7 @@ namespace ShadeControll
             }
             else
             {
-                telegramClient.SendMessage("ShadeControll is Running");
+                telegramClient.SendMessage("ShadeControll is Running\n /login [password]");
             }
             #endregion
 

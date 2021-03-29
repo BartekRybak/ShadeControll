@@ -6,13 +6,13 @@ namespace ShadeControll
 {
     abstract class ConfigFile
     {
-        public static readonly string Default = 
+        public static readonly string Default =
         @"
         [info]
         version=1.9
         id=Home_PC
         first_run=true
-        key=[telegram key]
+        key=1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg
         password=1234
 
         [directories]
