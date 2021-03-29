@@ -6,7 +6,7 @@ namespace ShadeControll.Commands
 {
     class Cmd
     {
-        public string Name;
+        public string CommandPrompt;
         public string[] Args;
 
         public Cmd(string userInput)
@@ -20,7 +20,7 @@ namespace ShadeControll.Commands
             {
                 if (msgSplited[i].Contains('/'))
                 {
-                    Name = msgSplited[i];
+                    CommandPrompt = msgSplited[i];
                     cmdNameIndex = i;
                     break;
                 }

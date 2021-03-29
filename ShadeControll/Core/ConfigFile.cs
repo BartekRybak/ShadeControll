@@ -9,10 +9,11 @@ namespace ShadeControll
         public static readonly string Default = 
         @"
         [info]
-        version=1.8
+        version=1.9
         id=Home_PC
         first_run=true
-        key=1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg
+        key=[telegram key]
+        password=1234
 
         [directories]
         logs=Logs/

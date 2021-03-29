@@ -33,10 +33,22 @@ namespace ShadeControll.Commands
             new Help_Command(),new Logout_Command(),new Screenshot_Command(),
             new ShutDown_Command(),new Test_Command(), new Webpage_Command(),
             new Update_Command(),new Version_Command(), new Config_Command(),
-            new Log_Command()
+            new Log_Command(),new Login_Command()
         };
 
         public Command() { }
+
+        public static Command GetCommand(string name)
+        {
+            foreach(Command _command in AvailableCommands)
+            {
+                if(_command.Name == name)
+                {
+                    return _command;
+                }
+            }
+            return new Command();
+        }
 
         /// <summary>
         /// Execute Command with Args
