@@ -7,7 +7,7 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.InputFiles;
 
-namespace ShadeControll
+namespace ShadeControll.Core
 {
     class TelegramClient
     {
