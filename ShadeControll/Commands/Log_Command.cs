@@ -19,14 +19,14 @@ namespace ShadeControll.Commands
         {
             if(args.Length == 0)
             {
-                string fileName = Program.configFile.GetValue("directories", "logs") + DateTime.Now.ToString("yyyy-dd-MM") + ".txt";
+                string fileName = Program.config.GetValue("directories", "logs") + DateTime.Now.ToString("yyyy-dd-MM") + ".txt";
                 Program.telegramClient.UploadFile(fileName, "Today Log File");
                 
             }
             
             if(args.Length == 1)
             {
-                string fileName = Program.configFile.GetValue("directories", "logs") + args[0] + ".txt";
+                string fileName = Program.config.GetValue("directories", "logs") + args[0] + ".txt";
 
                 if(!File.Exists(fileName))
                 {

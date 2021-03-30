@@ -20,7 +20,7 @@ namespace ShadeControll.Commands
         public override void Execute(string[] args)
         {
             Program.telegramClient.SendMessage(
-                "App Version - " + Program.configFile.GetValue("info", "version") + "\n /update"
+                "App Version - " + Program.config.GetValue("info", "version") + "\n /update"
                 );
             base.Execute(args);
         }

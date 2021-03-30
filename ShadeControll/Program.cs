@@ -20,27 +20,20 @@ namespace ShadeControll
 
         public static TelegramClient telegramClient;
         public static CryptCredentials myCryptCredentials;
-        public static ConfigParser configFile;
+        public static Config config;
         public static Loger loger;
         public static readonly string configFileName = "config.cfg";
         public static bool IsLogged = false;
         static void Main()
         {
-            myCryptCredentials = CryptCredentials.FromPassword(CRYPTO_PASSWORD, CRYPTO_SALT, CRYPTO_IV);
-            File.WriteAllText("random.txt", "jakos to do przodu idzie ulallala");
-            CryptFiles.Encrypt("random.txt", myCryptCredentials);
-            Console.WriteLine("zaszyfrowano");
-            Console.Read();
-            CryptFiles.Decrypt("random.txt", myCryptCredentials);
-            Console.WriteLine("Odszyfrowano");
-            Console.Read();
             // Preparing
             //Ninja.Hide();
 
             #region Initation
-            configFile = GetConfig(configFileName);
-            loger = new Loger(configFile.GetValue("directories", "logs"));
-            telegramClient = new TelegramClient(configFile.GetValue("info","key"));
+            myCryptCredentials = CryptCredentials.FromPassword(CRYPTO_PASSWORD, CRYPTO_SALT, CRYPTO_IV);
+            config = new Config(configFileName, myCryptCredentials);
+            loger = new Loger(config.GetValue("directories", "logs"));
+            telegramClient = new TelegramClient(config.GetValue("info","key"));
             #endregion
 
             #region Connecting
@@ -48,11 +41,10 @@ namespace ShadeControll
             #endregion
 
             #region First Run
-            if (configFile.GetValue("info","first_run") == "true")
+            if (config.GetValue("info","first_run") == "true")
             {
                 telegramClient.SendMessage("The instalation or update was successful 🤩 /version");
-                configFile.SetValue("info", "first_run", "false");
-                configFile.Save(configFileName);
+                config.SetValue("info", "first_run", "false");
             }
             else
             {
@@ -91,22 +83,5 @@ namespace ShadeControll
             }   
         }
         #endregion
-
-        // Prepare Config File
-        private static ConfigParser GetConfig(string file)
-        {
-            if(File.Exists(file))
-            {
-                return new ConfigParser(file);
-            }
-            else
-            {
-                File.WriteAllText(configFileName, Config._DEFAULT_CONFIG);
-                return new ConfigParser(Config._DEFAULT_CONFIG, new ConfigParserSettings {
-                    MultiLineValues = MultiLineValues.Simple | MultiLineValues.AllowValuelessKeys | MultiLineValues.QuoteDelimitedValues,
-                    Culture = new CultureInfo("en-US")
-                });
-            }
-        }
     }
 }

@@ -4,61 +4,74 @@ using System.Text;
 using Salaros.Configuration;
 using System.IO;
 using ShadeControll.Core;
+using ShadeControll.Core.Encryption;
 
 namespace ShadeControll.Core
 {
-    public class Config
+    class Config
     {
+        private string configFile; 
         private ConfigParser configParser;
+        private CryptCredentials cryptCredentials;
 
-        public static readonly string _DEFAULT_CONFIG =
-        @"
-        [info]
-        version=1.9
-        id=Home_PC
-        first_run=true
-        key=1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg
-        password=1234
-
-        [directories]
-        logs=Logs/
-        ";
-        /*
-        public Config(string configFileName,EncryptionCridentials cridential)
-        {
-            if(!File.Exists(configFileName))
+        public static string _DEFAULT_CONFIG
+        { 
+            get
             {
-                RestoreConfigFile(configFileName);
+                return @"
+                [info]
+                version=1.9
+                id=Home_PC
+                first_run=true
+                key=1774037430:AAHnjjeOUNvn-ZpyCCo_6mIhztp_GkagsVg
+                password=1234
+
+                [directories]
+                logs=Logs/
+                ".Trim();
             }
-
-            configParser = new ConfigParser(configFileName);
-        }
-
-        public void RestoreConfigFile(string fileName)
-        {
-            if(File.Exists(fileName))
+            set
             {
-                File.Delete(fileName);
+
             }
-            File.WriteAllText(fileName, _DEFAULT_CONFIG);
         }
 
-
-
-        public string GetValue(string section, string key, string defaultValue = null)
+       
+        
+        public Config(string configFile,CryptCredentials credentials)
         {
-            string decryptedFile = CryptManager.FileEncryption.
-            // deszyfrowanie
-            // pobieranie wartosci
-            // szyfrowanie
-             return configParser.GetValue(section, key, defaultValue);
-           
+            if(!File.Exists(configFile))
+            {
+                File.WriteAllText(configFile, _DEFAULT_CONFIG);
+                CryptFiles.Encrypt(configFile, credentials);
+            }
+            this.configFile = configFile;
+            cryptCredentials = credentials;
+            
         }
-         
-        public void SetValue(string section,string key,string newValue)
+
+        public void SetValue(string section,string key,string value)
         {
-            configParser.SetValue(section, key, newValue);
+            CryptFiles.Decrypt(configFile, cryptCredentials);
+            configParser = new ConfigParser(configFile);
+            configParser.SetValue(section, key, value);
+            CryptFiles.Encrypt(configFile, cryptCredentials);
         }
-        */
+
+        public string GetValue(string section,string key)
+        {
+            //Console.WriteLine();
+            string file = CryptFiles.Decrypt(configFile, cryptCredentials);
+            Console.Write(file);
+            configParser = new ConfigParser(configFile);
+            string value = configParser.GetValue(section, key);
+            CryptFiles.Encrypt(configFile, cryptCredentials);
+            return value;
+        }
+
+        public string GetConfigFile()
+        {
+            return CryptFiles.Decrypt(configFile, cryptCredentials);
+        }
     }
 }

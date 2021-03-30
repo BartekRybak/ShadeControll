@@ -29,14 +29,14 @@ namespace ShadeControll.Commands
                 }
                 else
                 {
-                    if(args[0] == Program.configFile.GetValue("info","password"))
+                    if(args[0] == Program.config.GetValue("info","password"))
                     {
                         Program.IsLogged = true;
                         Program.telegramClient.SendMessage("Logged in successfully");
                         Program.telegramClient.SendMessage(
-                        "ShadeControll is running now[" + Program.configFile.GetValue("info", "version") + "] \n" +
+                        "ShadeControll is running now[" + Program.config.GetValue("info", "version") + "] \n" +
                         "MachineName [" + Environment.MachineName + "] \n" +
-                        "AppID [" + Program.configFile.GetValue("info", "id") + "] \n" +
+                        "AppID [" + Program.config.GetValue("info", "id") + "] \n" +
                         "UserName [" + Environment.UserName + "] \n" +
                         "/help "
                 );

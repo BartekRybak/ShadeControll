@@ -20,18 +20,14 @@ namespace ShadeControll.Commands
             Console.WriteLine(args.Length);
             if(args.Length == 0)
             {
-                string configFile = File.ReadAllText(Program.configFileName);
+                string configFile = Program.config.GetConfigFile();
                 Program.telegramClient.SendMessage(configFile);
             }
 
             if(args.Length == 3)
             {
-                Console.WriteLine("elo");
-                Program.configFile.SetValue(args[0], args[1],args[2]);
-                Program.configFile.Save(Program.configFileName);
+                Program.config.SetValue(args[0], args[1],args[2]);
             }
-            
-
             base.Execute(args);
         }
     }
