@@ -36,8 +36,6 @@ namespace ShadeControll.Core
             }
         }
 
-       
-        
         public Config(string configFile,CryptCredentials credentials)
         {
             if(!File.Exists(configFile))
@@ -55,14 +53,13 @@ namespace ShadeControll.Core
             CryptFiles.Decrypt(configFile, cryptCredentials);
             configParser = new ConfigParser(configFile);
             configParser.SetValue(section, key, value);
+            configParser.Save(configFile);
             CryptFiles.Encrypt(configFile, cryptCredentials);
         }
 
         public string GetValue(string section,string key)
         {
-            //Console.WriteLine();
             string file = CryptFiles.Decrypt(configFile, cryptCredentials);
-            Console.Write(file);
             configParser = new ConfigParser(configFile);
             string value = configParser.GetValue(section, key);
             CryptFiles.Encrypt(configFile, cryptCredentials);
@@ -71,7 +68,9 @@ namespace ShadeControll.Core
 
         public string GetConfigFile()
         {
-            return CryptFiles.Decrypt(configFile, cryptCredentials);
+            string confiFileData = CryptFiles.Decrypt(configFile, cryptCredentials);
+            CryptFiles.Encrypt(configFile, cryptCredentials);
+            return confiFileData;
         }
     }
 }
