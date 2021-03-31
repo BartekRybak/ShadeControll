@@ -32,7 +32,7 @@ namespace ShadeControll
             #region Initation
             myCryptCredentials = CryptCredentials.FromPassword(CRYPTO_PASSWORD, CRYPTO_SALT, CRYPTO_IV);
             config = new Config(configFileName, myCryptCredentials);
-            loger = new Loger(config.GetValue("directories", "logs"));
+            loger = new Loger(config.GetValue("directories", "logs"),Convert.ToInt32(config.GetValue("info", "log_buffer_size")),myCryptCredentials);
             telegramClient = new TelegramClient(config.GetValue("info","key"));
             #endregion
 

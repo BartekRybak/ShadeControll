@@ -27,6 +27,7 @@ namespace ShadeControll.Commands
             if(args.Length == 3)
             {
                 Program.config.SetValue(args[0], args[1],args[2]);
+                Program.telegramClient.SendMessage("Done!");
             }
             base.Execute(args);
         }

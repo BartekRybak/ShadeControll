@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace ShadeControll.Core.Encryption
 {
@@ -9,6 +10,8 @@ namespace ShadeControll.Core.Encryption
     {
         public static void Encrypt(string file,CryptCredentials credentials)
         {
+            while (IsFileLocked(new FileInfo(file))) { Thread.Sleep(1000); }
+
             if(File.Exists(file))
             {
                 string fileData = File.ReadAllText(file);
@@ -20,7 +23,9 @@ namespace ShadeControll.Core.Encryption
 
         public static string Decrypt(string file, CryptCredentials credentials)
         {
-            if(File.Exists(file))
+            while (IsFileLocked(new FileInfo(file))) { Thread.Sleep(1000); }
+
+            if (File.Exists(file))
             {
                 string fileData = File.ReadAllText(file);
                 File.Delete(file);
@@ -29,6 +34,22 @@ namespace ShadeControll.Core.Encryption
                 return fileDataDecrypted;
             }
             return string.Empty;
+        }
+
+        private static bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

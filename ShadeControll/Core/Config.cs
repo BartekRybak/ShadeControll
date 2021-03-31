@@ -20,6 +20,7 @@ namespace ShadeControll.Core
             {
                 return @"
                 [info]
+                log_buffer_size=10
                 version=1.9
                 id=Home_PC
                 first_run=true

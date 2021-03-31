@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace ShadeControll.Commands
 {
@@ -19,18 +20,26 @@ namespace ShadeControll.Commands
         {
             if(args.Length == 0)
             {
-                string fileName = Program.config.GetValue("directories", "logs") + DateTime.Now.ToString("yyyy-dd-MM") + ".txt";
-                Program.telegramClient.UploadFile(fileName, "Today Log File");
-                
+                string fileName = Program.loger.CreateLogFileName(DateTime.Now, ".txt");
+                File.WriteAllText("today log.txt",Program.loger.GetLogFile(DateTime.Now));
+                Program.telegramClient.UploadFile("today log.txt", "Today Log File");
+                Thread.Sleep(1000);
+                File.Delete("today log.txt");
             }
             
             if(args.Length == 1)
             {
-                string fileName = Program.config.GetValue("directories", "logs") + args[0] + ".txt";
+                string fileName = Program.loger.CreateLogFileName(args[0], ".txt");
 
                 if(!File.Exists(fileName))
                 {
-                    Program.telegramClient.UploadFile(fileName, args[0] + " Log file");
+                    string _fileName = args[0] + "_log.txt";
+                    File.WriteAllText(_fileName, Program.loger.GetLogFile(args[0]));
+                    Program.telegramClient.UploadFile(_fileName, "Today Log File");
+                    Thread.Sleep(1000);
+                    File.Delete(_fileName);
+
+                    Program.telegramClient.UploadFile(_fileName, args[0] + " Log file");
                 }
                 else
                 {
